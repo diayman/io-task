@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { DropdownProps } from "../types";
 import { useServices } from "../useServices";
@@ -11,7 +12,6 @@ export default function Dropdown({
   onClose,
   onDropdownChange,
 }: DropdownProps) {
-  const router = useRouter();
   const params = useParams();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { services, isLoading } = useServices();
@@ -38,18 +38,14 @@ export default function Dropdown({
     };
   }, [isOpen, onClose, onDropdownChange]);
 
-  const handleServiceClick = (slug: string) => {
-    const locale = params.locale as string;
-    router.push(`/${locale}/services/${slug}`);
-    onDropdownChange(false);
-  };
-
   if (!isOpen) return null;
+
+  const locale = (params.locale as string) || "en";
 
   return (
     <div
       ref={dropdownRef}
-      className="absolute top-full left-0 mt-2 w-64 bg-[#4B2615] z-50"
+      className="absolute top-full left-0 mt-2 w-64 bg-primary z-50"
     >
       <div className="py-2">
         {isLoading ? (
@@ -58,13 +54,14 @@ export default function Dropdown({
           </div>
         ) : (
           services.map((service) => (
-            <button
+            <Link
               key={service.id}
-              onClick={() => handleServiceClick(service.slug)}
-              className="w-full text-left px-4 py-2 text-white cursor-pointer hover:bg-[#6B4B3D] hover:text-amber-400 transition-colors duration-200"
+              href={`/${locale}/services/${service.slug}`}
+              onClick={() => onDropdownChange(false)}
+              className="block px-4 py-2 text-white cursor-pointer hover:bg-[#6B4B3D] hover:text-amber-400 transition-colors duration-200"
             >
               {service.title}
-            </button>
+            </Link>
           ))
         )}
       </div>

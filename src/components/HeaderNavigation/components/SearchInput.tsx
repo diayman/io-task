@@ -114,7 +114,7 @@ function SearchInput() {
               value={query}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
               placeholder={t("navbar.search")}
-              className="text-white border border-white/30 w-[399px] h-[40px] rounded-md pl-10 pr-4 bg-transparent placeholder-white/70 focus:outline-none focus:ring-1 focus:ring-white focus:border-white"
+              className="text-white border border-white/30 w-[230px] md:w-[350px] h-[40px] rounded-md pl-10 pr-4 bg-transparent placeholder-white/70 focus:outline-none focus:ring-1 focus:ring-white focus:border-white"
               autoFocus
             />
           </form>

@@ -3,19 +3,11 @@
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { SimplifiedClient, StrapiClientResponse } from "./types";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
-// Helper function to get media URL
-const getMediaUrl = (media: any): string => {
-  if (!media) return "";
-  if (media.url) return `${API_BASE_URL}${media.url}`;
-  if (media.data?.attributes?.url) {
-    return `${API_BASE_URL}${media.data.attributes.url}`;
-  }
-  return "";
-};
 export function useClients() {
   const [clients, setClients] = useState<SimplifiedClient[]>([]);
   const [isLoading, setIsLoading] = useState(true);

@@ -69,13 +69,6 @@ export default function SearchPage() {
     }
   };
 
-  const getMediaUrl = (media: any) => {
-    if (!media?.data?.attributes?.url) return null;
-    const baseUrl =
-      process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
-    return `${baseUrl}${media.url}`;
-  };
-
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50">

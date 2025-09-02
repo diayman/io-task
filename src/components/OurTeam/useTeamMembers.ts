@@ -5,16 +5,10 @@ import {
   StrapiTeamMember,
 } from "./types";
 import { useLocale } from "next-intl";
+import { getMediaUrl } from "@/utils/getMediaUrl";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
-
-// Helper function to get media URL
-const getMediaUrl = (media: any): string => {
-  if (!media) return "";
-  if (media.url?.startsWith("http")) return media.url;
-  return media.url ? `${API_BASE_URL}${media.url}` : "";
-};
 
 // Transform raw Strapi data to simplified format
 const transformTeamData = (

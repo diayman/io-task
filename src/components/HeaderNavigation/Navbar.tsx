@@ -227,20 +227,25 @@ export default function Navbar() {
             >
               {t("about")}
             </Link>
-            <Link
-              href="#services"
-              className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t("services")}
-            </Link>
-            <Link
-              href="#products"
-              className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              {t("products")}
-            </Link>
+            <div className="relative">
+              <button
+                onClick={() => handleDropdownChange(!isDropdownOpen)}
+                className="cursor-pointer space-x-1.5 text-white hover:text-amber-300 px-3 py-2 text-sm font-medium transition-colors flex items-center"
+              >
+                <span>{t("services")}</span>
+                <ChevronIcon
+                  className={`h-4 w-4 ${
+                    isDropdownOpen ? "rotate-90" : "-rotate-90"
+                  }`}
+                />
+              </button>
+
+              <Dropdown
+                isOpen={isDropdownOpen}
+                onClose={handleDropdownClose}
+                onDropdownChange={handleDropdownChange}
+              />
+            </div>
             <Link
               href="#blog"
               className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium transition-colors"
