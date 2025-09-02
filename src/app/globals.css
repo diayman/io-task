@@ -32,3 +32,88 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Service page prose styles moved from server component */
+.prose h2 {
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.prose .service-section {
+  border-left: 3px solid rgba(0, 0, 0, 0.05);
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.prose .service-section:last-of-type {
+  margin-bottom: 4rem;
+}
+
+/* LTR default */
+html[lang="en"] .prose .service-section > p:first-child {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 17px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+html[lang="en"] .prose .service-section > p:first-child::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--color-primary);
+}
+
+/* RTL */
+html[lang="ar"] .prose .service-section > p:first-child {
+  position: relative;
+  padding-right: 1rem;
+  font-size: 17px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+html[lang="ar"] .prose .service-section > p:first-child::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0.5rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--color-primary);
+}
+
+.prose p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.prose ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+  list-style-type: "- ";
+}
+
+.prose strong {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.prose hr {
+  border-color: #e5e7eb;
+  margin: 2rem 0;
+}

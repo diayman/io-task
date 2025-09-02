@@ -4,12 +4,15 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useAppSelector } from "@/redux/hooks";
 import { useTeamMembers } from "./useTeamMembers";
+import { SimplifiedTeamMember } from "./types";
 import MemberCard from "./MemberCard";
 import ChevronIcon from "../icons/ChevronIcon";
 
-export default function Team() {
+type Props = { initialMembers?: SimplifiedTeamMember[] };
+
+export default function Team({ initialMembers }: Props) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { members, isLoading, error } = useTeamMembers();
+  const { members, isLoading, error } = useTeamMembers(initialMembers);
   const t = useTranslations();
   const { isRTL } = useAppSelector((state) => state.language);
 

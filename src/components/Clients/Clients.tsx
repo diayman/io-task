@@ -6,9 +6,13 @@ import { useClients } from "./useClients";
 import ArrowIcon from "../icons/ArrowIcon";
 import Image from "next/image";
 
-export default function Clients() {
+import { SimplifiedClient } from "./types";
+
+type Props = { initialClients?: SimplifiedClient[] };
+
+export default function Clients({ initialClients }: Props) {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const { clients, isLoading, error } = useClients();
+  const { clients, isLoading, error } = useClients(initialClients);
   const t = useTranslations();
   const locale = useLocale();
   const isRTL = locale === "ar";

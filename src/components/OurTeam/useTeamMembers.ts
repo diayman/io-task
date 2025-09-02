@@ -43,13 +43,20 @@ const transformTeamData = (
   }));
 };
 
-export function useTeamMembers() {
-  const [members, setMembers] = useState<SimplifiedTeamMember[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function useTeamMembers(prefetched?: SimplifiedTeamMember[]) {
+  const [members, setMembers] = useState<SimplifiedTeamMember[]>(
+    prefetched || []
+  );
+  const [isLoading, setIsLoading] = useState(!prefetched);
   const [error, setError] = useState<string | null>(null);
   const locale = useLocale();
 
   useEffect(() => {
+    if (prefetched && prefetched.length > 0) {
+      setMembers(prefetched);
+      setIsLoading(false);
+      return;
+    }
     const fetchMembers = async () => {
       try {
         setIsLoading(true);
@@ -72,7 +79,7 @@ export function useTeamMembers() {
     };
 
     fetchMembers();
-  }, [locale]);
+  }, [locale, prefetched]);
 
   return { members, isLoading, error };
 }

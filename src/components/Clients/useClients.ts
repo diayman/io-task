@@ -8,13 +8,18 @@ import { getMediaUrl } from "@/utils/getMediaUrl";
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
-export function useClients() {
-  const [clients, setClients] = useState<SimplifiedClient[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function useClients(prefetched?: SimplifiedClient[]) {
+  const [clients, setClients] = useState<SimplifiedClient[]>(prefetched || []);
+  const [isLoading, setIsLoading] = useState(!prefetched);
   const [error, setError] = useState<string | null>(null);
   const locale = useLocale();
 
   useEffect(() => {
+    if (prefetched && prefetched.length > 0) {
+      setClients(prefetched);
+      setIsLoading(false);
+      return;
+    }
     const fetchClients = async () => {
       try {
         setIsLoading(true);
@@ -53,7 +58,7 @@ export function useClients() {
     };
 
     fetchClients();
-  }, [locale]);
+  }, [locale, prefetched]);
 
   return { clients, isLoading, error };
 }

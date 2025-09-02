@@ -8,13 +8,20 @@ import { getMediaUrl } from "@/utils/getMediaUrl";
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
 
-export function useHeroSlides() {
-  const [slides, setSlides] = useState<SimplifiedHeroSlide[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export function useHeroSlides(prefetchedSlides?: SimplifiedHeroSlide[]) {
+  const [slides, setSlides] = useState<SimplifiedHeroSlide[]>(
+    prefetchedSlides || []
+  );
+  const [isLoading, setIsLoading] = useState(!prefetchedSlides);
   const [error, setError] = useState<string | null>(null);
   const locale = useLocale();
 
   useEffect(() => {
+    if (prefetchedSlides && prefetchedSlides.length > 0) {
+      setSlides(prefetchedSlides);
+      setIsLoading(false);
+      return;
+    }
     const fetchSlides = async () => {
       try {
         setIsLoading(true);
@@ -35,7 +42,9 @@ export function useHeroSlides() {
             subtitle: slide.subheadline,
             ctaText: slide.cta?.[0]?.text || "Learn More",
             ctaLink: slide.cta?.[0]?.url || "#",
-            src: getMediaUrl(slide.background_media),
+            src:
+              getMediaUrl(slide.background_media) ||
+              "/images/service-image.jpg",
             alt: slide.background_media?.alternativeText || slide.headline,
             type: slide.media_type,
             portraitImage: getMediaUrl(slide.image),
@@ -57,7 +66,7 @@ export function useHeroSlides() {
     };
 
     fetchSlides();
-  }, [locale]);
+  }, [locale, prefetchedSlides]);
 
   return { slides, isLoading, error };
 }

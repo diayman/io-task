@@ -6,10 +6,25 @@ import ChevronIcon from "../icons/ChevronIcon";
 import { useLocale } from "next-intl";
 import Image from "next/image";
 
-export default function Hero() {
+type Props = {
+  initialSlides?: {
+    id: string;
+    type: "image" | "video";
+    src: string;
+    alt?: string;
+    title: string;
+    subtitle: string;
+    ctaText: string;
+    ctaLink: string;
+    portraitImage?: string;
+    portraitAlt?: string;
+  }[];
+};
+
+export default function Hero({ initialSlides }: Props) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const { slides, isLoading, error } = useHeroSlides();
+  const { slides, isLoading, error } = useHeroSlides(initialSlides);
   const locale = useLocale();
   const isRTL = locale === "ar";
 
