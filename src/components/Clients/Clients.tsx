@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useClients } from "./useClients";
 import ArrowIcon from "../icons/ArrowIcon";
+import Image from "next/image";
 
 export default function Clients() {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -69,10 +70,15 @@ export default function Clients() {
               {/* Client Image */}
               <div className="flex justify-center">
                 <div className="relative w-80 h-80 bg-[#6B4B3D] rounded-lg overflow-hidden">
-                  <img
-                    src={clients[currentTestimonial]?.logoUrl}
-                    alt={clients[currentTestimonial]?.logoAlt}
-                    className="w-full h-full object-cover"
+                  <Image
+                    src={
+                      clients[currentTestimonial]?.logoUrl ||
+                      "/images/service-image.jpg"
+                    }
+                    alt={clients[currentTestimonial]?.logoAlt || "Client logo"}
+                    fill
+                    className="object-cover"
+                    sizes="(min-width: 1024px) 20rem, 20rem"
                   />
                 </div>
               </div>

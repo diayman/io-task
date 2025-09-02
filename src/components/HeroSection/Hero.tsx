@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useHeroSlides } from "./useHeroSlides";
 import ChevronIcon from "../icons/ChevronIcon";
 import { useLocale } from "next-intl";
+import Image from "next/image";
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -75,12 +76,15 @@ export default function Hero() {
             <source src={currentSlideData.src} type="video/mp4" />
           </video>
         ) : (
-          <img
+          <Image
             src={currentSlideData.src}
-            alt={currentSlideData.alt}
-            className={`w-full h-full transition-all duration-700 ease-out ${
+            alt={currentSlideData.alt || currentSlideData.title}
+            fill
+            className={`object-cover transition-all duration-700 ease-out ${
               isAnimating ? "scale-110" : "scale-100"
             }`}
+            sizes="100vw"
+            priority={currentSlide === 0}
           />
         )}
 
@@ -122,11 +126,13 @@ export default function Hero() {
                   : "opacity-100 transform translate-x-0"
               }`}
             >
-              <div className="bg-[#4A2F24] rounded-lg h-[250px] lg:h-[370px] w-[250px] lg:w-[370px] flex items-center justify-center transition-all duration-500 hover:scale-105">
-                <img
+              <div className="bg-[#4A2F24] rounded-lg h-[250px] lg:h-[370px] w-[250px] lg:w-[370px] flex items-center justify-center transition-all duration-500 hover:scale-105 relative overflow-hidden">
+                <Image
                   src={currentSlideData.portraitImage}
                   alt={currentSlideData.portraitAlt || currentSlideData.title}
-                  className="w-full h-full object-cover rounded"
+                  fill
+                  className="object-cover rounded"
+                  sizes="(min-width: 1024px) 370px, 250px"
                 />
               </div>
             </div>

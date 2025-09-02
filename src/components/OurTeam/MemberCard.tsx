@@ -5,6 +5,7 @@ import { SimplifiedTeamMember } from "./types";
 import WhatsappIcon from "../icons/WhatsappIcon";
 import PhoneIcon from "../icons/PhoneIcon";
 import MailIcon from "../icons/MailIcon";
+import Image from "next/image";
 
 interface MemberCardProps {
   member: SimplifiedTeamMember;
@@ -17,10 +18,12 @@ export default function MemberCard({ member }: MemberCardProps) {
     <div className="">
       {/* Member Image */}
       <div className="relative h-64 bg-gray-200">
-        <img
+        <Image
           src={member.photoUrl}
           alt={member.photoAlt}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="(min-width: 1024px) 16rem, 100vw"
         />
       </div>
 
