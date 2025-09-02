@@ -46,7 +46,7 @@ export default async function ServicePage({ params }: PageProps) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-6">
-        <h1 className="text-[42px] font-medium text-primary leading-tight">
+        <h1 className="lg:text-[42px] md:text-[32px] text-[24px] font-medium text-primary leading-tight">
           {service.title}
         </h1>
       </div>

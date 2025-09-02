@@ -83,7 +83,7 @@ export default function Team({ initialMembers }: Props) {
   }
 
   return (
-    <section id="team" className={`py-36 bg-gray-100`}>
+    <section id="team" className={`py-36 bg-gray-100 overflow-hidden`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -101,7 +101,7 @@ export default function Team({ initialMembers }: Props) {
           <button
             onClick={goToPrevious}
             disabled={!canGoPrevious}
-            className={`absolute -left-[50px] top-1/2 transform -translate-y-1/2 z-10 ${
+            className={`absolute left-2 md:-left-[50px] top-1/2 transform -translate-y-1/2 z-10 ${
               canGoPrevious
                 ? "bg-white/30 hover:bg-white/50 cursor-pointer"
                 : "bg-white/10 cursor-not-allowed opacity-50"
@@ -114,7 +114,7 @@ export default function Team({ initialMembers }: Props) {
           <button
             onClick={goToNext}
             disabled={!canGoNext}
-            className={`absolute -right-[50px] top-1/2 transform -translate-y-1/2 z-10  ${
+            className={`absolute right-2 md:-right-[50px] top-1/2 transform -translate-y-1/2 z-10  ${
               canGoNext
                 ? "bg-white/30 hover:bg-white/50 cursor-pointer"
                 : "bg-white/10 cursor-not-allowed opacity-50"

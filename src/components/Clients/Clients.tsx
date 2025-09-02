@@ -29,7 +29,7 @@ export default function Clients({ initialClients }: Props) {
 
   if (isLoading) {
     return (
-      <section id="clients" className={`py-16 bg-[#4A2F24]`}>
+      <section id="clients" className={`py-16 bg-primary`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-600 rounded w-64 mb-4"></div>
@@ -42,7 +42,7 @@ export default function Clients({ initialClients }: Props) {
 
   if (error) {
     return (
-      <section id="clients" className={`py-16 bg-[#4A2F24]`}>
+      <section id="clients" className={`py-16 bg-primary`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-red-300">
@@ -55,7 +55,7 @@ export default function Clients({ initialClients }: Props) {
   }
 
   return (
-    <section id="clients" className={`py-16 bg-[#4B2615]`}>
+    <section id="clients" className={`py-16 bg-primary`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16">
@@ -89,7 +89,7 @@ export default function Clients({ initialClients }: Props) {
 
               {/* Testimonial Content */}
               <div className="space-y-6 flex flex-col justify-between">
-                <div className="text-white opacity-60 text-lg font-normal leading-[40px] max-w-[90%]">
+                <div className="text-white opacity-60 text-sm md:text-lg font-normal leading-[40px] max-w-[90%]">
                   "{clients[currentTestimonial]?.testimonial}"
                 </div>
 

@@ -141,7 +141,7 @@ export default function Hero({ initialSlides }: Props) {
                   : "opacity-100 transform translate-x-0"
               }`}
             >
-              <div className="bg-[#4A2F24] rounded-lg h-[250px] lg:h-[370px] w-[250px] lg:w-[370px] flex items-center justify-center transition-all duration-500 hover:scale-105 relative overflow-hidden">
+              <div className="bg-[#4A2F24] rounded-lg h-[200px] lg:h-[370px] md:h-[250px] w-[200px] lg:w-[370px] md:w-[250px] flex items-center justify-center transition-all duration-500 hover:scale-105 relative overflow-hidden">
                 <Image
                   src={currentSlideData.portraitImage}
                   alt={currentSlideData.portraitAlt || currentSlideData.title}
@@ -186,7 +186,7 @@ export default function Hero({ initialSlides }: Props) {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-[10px] h-[10px] rounded-full transition-all duration-300 ease-out hover:scale-125 ${
+            className={`md:w-[10px] md:h-[10px] w-[7px] h-[7px] rounded-full transition-all duration-300 ease-out hover:scale-125 ${
               index === currentSlide
                 ? "bg-white scale-125 shadow-lg"
                 : "border-2 border-white bg-transparent hover:bg-white hover:bg-opacity-50"
