@@ -4,9 +4,16 @@ const API_BASE_URL =
 
 export const getMediaUrl = (media: any): string => {
   if (!media) return "";
-  if (media.url) return `${API_BASE_URL}${media.url}`;
-  if (media.data?.attributes?.url) {
-    return `${API_BASE_URL}${media.data.attributes.url}`;
+
+  const url = media.url || media.data?.attributes?.url;
+
+  if (!url) return "";
+
+  // If it's already a full URL (starts with http), return it as is (in production it's full url)
+  if (url.startsWith("http")) {
+    return url;
   }
-  return "";
+
+  // Otherwise, prepend the API base URL
+  return `${API_BASE_URL}${url}`;
 };
