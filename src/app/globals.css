@@ -5,11 +5,14 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-primary: #4b2615;
+  --color-secondary: #6b4b3d;
+  --color-tertiary: #69483a;
+  --color-quaternary: #c68f73;
+  --color-quinary: #f5d9c7;
+  --color-senary: #4a2f24;
+  --color-septenary: #4a2f24;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +20,11 @@
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
