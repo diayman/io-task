@@ -156,7 +156,7 @@ export default function SubscriptionForm() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 cursor-pointer bg-primary hover:bg-tertiary text-white font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-sm hover:shadow-md"
+              className="text-sm md:text-base px-4 py-2 cursor-pointer bg-primary hover:bg-tertiary text-white font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-sm hover:shadow-md"
             >
               {isSubmitting ? (
                 <span className="flex items-center">

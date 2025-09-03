@@ -42,7 +42,7 @@ export default function Alert({
 
   const getAlertStyles = () => {
     const baseStyles =
-      "fixed top-4 right-4 z-50 max-w-sm w-full transform transition-all duration-300 ease-in-out";
+      "fixed top-4 right-4 z-50 max-w-sm w-[80%] md:w-full transform transition-all duration-300 ease-in-out";
     const animationStyles =
       isVisible && isAnimating
         ? "translate-x-0 opacity-100"
@@ -121,7 +121,7 @@ export default function Alert({
         <div className="flex items-start">
           <div className="flex-shrink-0">{getIcon()}</div>
           <div className="ml-3 flex-1">
-            <p className="text-sm font-medium">{message}</p>
+            <p className="text-xs md:text-sm font-medium">{message}</p>
           </div>
           {onClose && (
             <div className="ml-4 flex-shrink-0">

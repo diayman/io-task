@@ -15,9 +15,9 @@ export default function MemberCard({ member }: MemberCardProps) {
   const t = useTranslations();
 
   return (
-    <div className="">
+    <div className="flex flex-col items-center justify-center">
       {/* Member Image */}
-      <div className="relative h-64 bg-gray-200">
+      <div className="relative h-64  w-[80%] md:w-full bg-gray-200">
         <Image
           src={member.photoUrl}
           alt={member.photoAlt}
@@ -29,10 +29,10 @@ export default function MemberCard({ member }: MemberCardProps) {
 
       {/* Member Info */}
       <div className="p-6 text-center">
-        <h3 className="text-[22px] font-medium text-primary mb-2">
+        <h3 className="md:text-[22px] text-base font-medium text-primary mb-2">
           {member.name}
         </h3>
-        <p className="text-[#15143966] uppercase text-sm font-bold mb-4">
+        <p className="text-[#15143966] uppercase md:text-sm text-xs font-bold mb-4">
           {member.role}
         </p>
 
@@ -45,7 +45,7 @@ export default function MemberCard({ member }: MemberCardProps) {
               className="text-secondary hover:text-amber-600 transition-colors"
               aria-label={t("team.social.whatsapp")}
             >
-              <WhatsappIcon className="w-5 h-5 text-black" />
+              <WhatsappIcon className="md:w-5 md:h-5 w-4 h-4 text-black" />
             </a>
           )}
           {member.socialLinks.phone && (
@@ -54,7 +54,7 @@ export default function MemberCard({ member }: MemberCardProps) {
               className="text-secondary hover:text-amber-600 transition-colors"
               aria-label={t("team.social.phone")}
             >
-              <PhoneIcon className="w-6 h-6 text-black" />
+              <PhoneIcon className="md:w-6 md:h-6 w-4 h-4 text-black" />
             </a>
           )}
           {member.socialLinks.email && (
@@ -63,7 +63,7 @@ export default function MemberCard({ member }: MemberCardProps) {
               className="text-secondary hover:text-amber-600 transition-colors"
               aria-label={t("team.social.email")}
             >
-              <MailIcon className="w-6 h-6 text-black" />
+              <MailIcon className="md:w-6 md:h-6 w-4 h-4 text-black" />
             </a>
           )}
         </div>
