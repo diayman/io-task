@@ -5,10 +5,9 @@ import {
   StrapiTeamMember,
 } from "./types";
 import { useLocale } from "next-intl";
-import { getMediaUrl } from "@/utils/getMediaUrl";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { getMediaUrl } from "@/lib/media";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 // Transform raw Strapi data to simplified format
 const transformTeamData = (
@@ -61,7 +60,7 @@ export function useTeamMembers(prefetched?: SimplifiedTeamMember[]) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${API_BASE_URL}/api/team-members?populate=*&locale=${locale}`
+          `${config.api.baseUrl}${API_ENDPOINTS.TEAM_MEMBERS}?populate=*&locale=${locale}`
         );
 
         if (!response.ok) {

@@ -11,11 +11,9 @@ import {
   setSubscriptionError,
   setSubscriptionSuccess,
 } from "@/redux/slices/formSlice";
-import { SubscriptionFormProps } from "./types";
 import { Alert } from "@/components/common";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 export default function SubscriptionForm() {
   const t = useTranslations();
@@ -62,17 +60,20 @@ export default function SubscriptionForm() {
 
       try {
         // Call the Strapi API
-        const response = await fetch(`${API_BASE_URL}/api/subscribers`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            data: {
-              email: values.email,
+        const response = await fetch(
+          `${config.api.baseUrl}${API_ENDPOINTS.SUBSCRIBERS}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          }),
-        });
+            body: JSON.stringify({
+              data: {
+                email: values.email,
+              },
+            }),
+          }
+        );
 
         const result = await response.json();
 

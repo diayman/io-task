@@ -4,6 +4,11 @@ import BackButton from "@/components/common/BackButton";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { ServiceResponse } from "./types";
+import {
+  apiFetchWithRevalidation,
+  apiFetchNoCache,
+  API_ENDPOINTS,
+} from "@/lib/api";
 
 export const revalidate = 10; // 10s revalidation for now
 
@@ -12,15 +17,16 @@ type PageProps = {
 };
 
 async function fetchService(locale: string, slug: string) {
-  const API_BASE_URL =
-    process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
-  const response = await fetch(
-    `${API_BASE_URL}/api/services?filters[slug][$eq]=${slug}&locale=${locale}`,
-    { next: { revalidate } }
-  );
-  if (!response.ok) return null;
-  const json = await response.json();
-  return json?.data?.[0] ?? null;
+  try {
+    const json: ServiceResponse = await apiFetchWithRevalidation(
+      `${API_ENDPOINTS.SERVICES}?filters[slug][$eq]=${slug}&locale=${locale}`,
+      revalidate
+    );
+    return json?.data?.[0] ?? null;
+  } catch (error) {
+    console.error("Error fetching service:", error);
+    return null;
+  }
 }
 
 export default async function ServicePage({ params }: PageProps) {
@@ -65,24 +71,24 @@ export default async function ServicePage({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  const API_BASE_URL =
-    process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
   // Generate for all locales
   const locales = ["en", "ar"]; // keep in sync with routing.locales
   const allParams: Array<{ locale: string; serviceSlug: string }> = [];
+
   for (const locale of locales) {
-    const res = await fetch(
-      `${API_BASE_URL}/api/services?locale=${locale}&fields=slug`,
-      {
-        cache: "no-store",
-      }
-    );
-    if (!res.ok) continue;
-    const services: ServiceResponse = await res.json();
-    const slugs: string[] = (services?.data || [])
-      .map((s) => s.slug)
-      .filter(Boolean);
-    slugs.forEach((slug) => allParams.push({ locale, serviceSlug: slug }));
+    try {
+      const services: ServiceResponse = await apiFetchNoCache(
+        `${API_ENDPOINTS.SERVICES}?locale=${locale}&fields=slug`
+      );
+      const slugs: string[] = (services?.data || [])
+        .map((s) => s.slug)
+        .filter(Boolean);
+      slugs.forEach((slug) => allParams.push({ locale, serviceSlug: slug }));
+    } catch (error) {
+      console.error(`Error fetching services for locale ${locale}:`, error);
+      continue;
+    }
   }
+
   return allParams.map(({ locale, serviceSlug }) => ({ locale, serviceSlug }));
 }

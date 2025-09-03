@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { SimplifiedClient, StrapiClientResponse } from "./types";
-import { getMediaUrl } from "@/utils/getMediaUrl";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { getMediaUrl } from "@/lib/media";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 export function useClients(prefetched?: SimplifiedClient[]) {
   const [clients, setClients] = useState<SimplifiedClient[]>(prefetched || []);
@@ -24,7 +23,7 @@ export function useClients(prefetched?: SimplifiedClient[]) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${API_BASE_URL}/api/clients?populate=logo&locale=${locale}`
+          `${config.api.baseUrl}${API_ENDPOINTS.CLIENTS}?populate=logo&locale=${locale}`
         );
 
         if (!response.ok) {

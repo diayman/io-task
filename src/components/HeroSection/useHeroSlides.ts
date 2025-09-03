@@ -3,10 +3,9 @@
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { HeroSectionResponse, SimplifiedHeroSlide } from "./types";
-import { getMediaUrl } from "@/utils/getMediaUrl";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { getMediaUrl } from "@/lib/media";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 export function useHeroSlides(prefetchedSlides?: SimplifiedHeroSlide[]) {
   const [slides, setSlides] = useState<SimplifiedHeroSlide[]>(
@@ -26,7 +25,7 @@ export function useHeroSlides(prefetchedSlides?: SimplifiedHeroSlide[]) {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${API_BASE_URL}/api/hero-section?populate[slides][populate]=*&locale=${locale}`
+          `${config.api.baseUrl}${API_ENDPOINTS.HERO_SECTION}?populate[slides][populate]=*&locale=${locale}`
         );
 
         if (!response.ok) {

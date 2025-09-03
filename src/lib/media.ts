@@ -1,6 +1,4 @@
-// Helper function to get media URL
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { config } from "./config";
 
 export const getMediaUrl = (media: any): string => {
   if (!media) return "";
@@ -14,6 +12,6 @@ export const getMediaUrl = (media: any): string => {
     return url;
   }
 
-  // Otherwise, prepend the API base URL
-  return `${API_BASE_URL}${url}`;
+  // Otherwise, prepend the API base URL from centralized config
+  return `${config.api.baseUrl}${url}`;
 };

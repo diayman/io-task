@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { ServiceItem } from "./types";
-
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 export function useServices() {
   const [services, setServices] = useState<ServiceItem[]>([]);
@@ -18,7 +17,7 @@ export function useServices() {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${API_BASE_URL}/api/services?fields[0]=id&fields[1]=title&fields[2]=slug&locale=${locale}`
+          `${config.api.baseUrl}${API_ENDPOINTS.SERVICES}?fields[0]=id&fields[1]=title&fields[2]=slug&locale=${locale}`
         );
 
         if (!response.ok) {

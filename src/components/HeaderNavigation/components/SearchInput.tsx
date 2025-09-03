@@ -1,6 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 import {
   closeSearch,
   openSearch,
@@ -78,17 +80,16 @@ function SearchInput() {
 
   // Search function that queries both team and services
   const performSearch = async (searchQuery: string) => {
-    const API_BASE_URL =
-      process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+    const API_BASE_URL = config.api.baseUrl;
 
     // Search in team members
     const teamResponse = await fetch(
-      `${API_BASE_URL}/api/team-members?locale=${locale}&filters[name][$containsi]=${searchQuery}&populate=*`
+      `${API_BASE_URL}${API_ENDPOINTS.TEAM_MEMBERS}?locale=${locale}&filters[name][$containsi]=${searchQuery}&populate=*`
     );
 
     // Search in services
     const servicesResponse = await fetch(
-      `${API_BASE_URL}/api/services?locale=${locale}&filters[title][$containsi]=${searchQuery}&populate=*`
+      `${API_BASE_URL}${API_ENDPOINTS.SERVICES}?locale=${locale}&filters[title][$containsi]=${searchQuery}&populate=*`
     );
 
     const teamData = await teamResponse.json();

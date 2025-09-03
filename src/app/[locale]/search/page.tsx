@@ -14,6 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import BackButton from "@/components/common/BackButton";
 import SearchIcon from "@/components/icons/SearchIcon";
+import { config } from "@/lib/config";
+import { API_ENDPOINTS } from "@/lib/api";
 
 type FilterType = "team" | "services";
 
@@ -40,17 +42,16 @@ export default function SearchPage() {
     try {
       dispatch(setSearchLoading(true));
 
-      const API_BASE_URL =
-        process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+      const API_BASE_URL = config.api.baseUrl;
 
       // Search in team members
       const teamResponse = await fetch(
-        `${API_BASE_URL}/api/team-members?locale=${locale}&filters[name][$containsi]=${searchQuery}&populate=*`
+        `${API_BASE_URL}${API_ENDPOINTS.TEAM_MEMBERS}?locale=${locale}&filters[name][$containsi]=${searchQuery}&populate=*`
       );
 
       // Search in services
       const servicesResponse = await fetch(
-        `${API_BASE_URL}/api/services?locale=${locale}&filters[title][$containsi]=${searchQuery}&populate=*`
+        `${API_BASE_URL}${API_ENDPOINTS.SERVICES}?locale=${locale}&filters[title][$containsi]=${searchQuery}&populate=*`
       );
 
       const teamData = await teamResponse.json();
