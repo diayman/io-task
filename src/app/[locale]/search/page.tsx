@@ -1,14 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import {
-  setSearchQuery,
-  setSearchLoading,
-  setSearchResults,
-} from "@/redux/slices/searchSlice";
+import { setSearchLoading, setSearchResults } from "@/redux/slices/searchSlice";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";

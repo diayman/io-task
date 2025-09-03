@@ -1,14 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
-import { config } from "@/lib/config";
-import { API_ENDPOINTS } from "@/lib/api";
 import {
   closeSearch,
   openSearch,
   setSearchQuery,
-  setSearchLoading,
-  setSearchResults,
 } from "@/redux/slices/searchSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useTranslations } from "next-intl";
@@ -56,49 +52,9 @@ function SearchInput() {
 
     if (!query.trim()) return;
 
-    try {
-      dispatch(setSearchLoading(true));
+    dispatch(closeSearch());
 
-      // Perform search across team and services
-      const searchResults = await performSearch(query);
-
-      // Store results in Redux
-      dispatch(setSearchResults(searchResults));
-
-      // Close search input
-      dispatch(closeSearch());
-
-      // Redirect to search results page with locale
-      router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
-    } catch (error) {
-      console.error("Search error:", error);
-      // Handle error (could show toast notification)
-    } finally {
-      dispatch(setSearchLoading(false));
-    }
-  };
-
-  // Search function that queries both team and services
-  const performSearch = async (searchQuery: string) => {
-    const API_BASE_URL = config.api.baseUrl;
-
-    // Search in team members
-    const teamResponse = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.TEAM_MEMBERS}?locale=${locale}&filters[name][$containsi]=${searchQuery}&populate=*`
-    );
-
-    // Search in services
-    const servicesResponse = await fetch(
-      `${API_BASE_URL}${API_ENDPOINTS.SERVICES}?locale=${locale}&filters[title][$containsi]=${searchQuery}&populate=*`
-    );
-
-    const teamData = await teamResponse.json();
-    const servicesData = await servicesResponse.json();
-
-    return {
-      team: teamData.data || [],
-      services: servicesData.data || [],
-    };
+    router.push(`/${locale}/search?q=${encodeURIComponent(query)}`);
   };
 
   return (
