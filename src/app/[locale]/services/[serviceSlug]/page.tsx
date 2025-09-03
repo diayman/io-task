@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import BackButton from "@/components/common/BackButton";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
+import { ServiceResponse } from "./types";
 
 export const revalidate = 10; // 10s revalidation for now
 
@@ -77,9 +78,9 @@ export async function generateStaticParams() {
       }
     );
     if (!res.ok) continue;
-    const json = await res.json();
-    const slugs: string[] = (json?.data || [])
-      .map((s: any) => s.slug)
+    const services: ServiceResponse = await res.json();
+    const slugs: string[] = (services?.data || [])
+      .map((s) => s.slug)
       .filter(Boolean);
     slugs.forEach((slug) => allParams.push({ locale, serviceSlug: slug }));
   }
